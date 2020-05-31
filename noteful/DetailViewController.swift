@@ -31,7 +31,16 @@ class DetailViewController: UIViewController {
     
     @objc func saveTapped() {
         let newNote = Note(title: "Note title", body: noteBody.text)
-        notes?.append(newNote)
+        print(notes?.count)
+        print(note?.body)
+
+        if let index = notes?.firstIndex(where: {$0.id == note?.id}) {
+            print("if")
+            notes?[index] = newNote
+        } else {
+            print("else")
+            notes?.append(newNote)
+        }
             
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(notes) {
