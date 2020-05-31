@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc func saveTapped() {
-        let maxTitleSize = 20        
+        let maxTitleSize = 20
         let noteTitle = noteBody.text.count > maxTitleSize ? (noteBody.text as NSString).substring(to: 20) : (noteBody.text as NSString).substring(to: noteBody.text.count)
         
         let newNote = Note(title: noteTitle, body: noteBody.text)

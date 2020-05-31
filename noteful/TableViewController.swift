@@ -48,6 +48,18 @@ class TableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            notes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(notes) {
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(encoded, forKey: "notes")
+            }
+        }
+    }
+    
     @objc func addTapped() {
         if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
             vc.notes = notes
