@@ -8,12 +8,7 @@
 
 import Foundation
 
-class Note: Codable {
+struct Note: Codable {
     var title: String
     var body: String
-    
-    init(title: String, body: String) {
-        self.title = title
-        self.body = body
-    }
 }

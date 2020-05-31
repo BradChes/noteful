@@ -10,10 +10,14 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    private var notes: [Note] = [Note(title: "Test title", body: "Test Body")]
+    private var notes = [Note]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pullFromUserDefaults()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         
         title = "Noteful 🗒"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -35,6 +39,31 @@ class TableViewController: UITableViewController {
         if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
             vc.note = notes[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        pullFromUserDefaults()
+        self.tableView.reloadData()
+    }
+    
+    @objc func addTapped() {
+        if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+            vc.notes = notes
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func pullFromUserDefaults() {
+        let defaults = UserDefaults.standard
+        
+        if let savedNotes = defaults.object(forKey: "notes") as? Data {
+            let jsonDecoder = JSONDecoder()
+            do {
+                notes = try jsonDecoder.decode([Note].self, from: savedNotes)
+            } catch {
+                print("Failed to load notes.")
+            }
         }
     }
 }

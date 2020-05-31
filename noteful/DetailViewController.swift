@@ -12,6 +12,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var noteBody: UITextView!
     
+    var notes: [Note]?
     var note: Note?
 
     override func viewDidLoad() {
@@ -19,11 +20,24 @@ class DetailViewController: UIViewController {
 
         navigationItem.largeTitleDisplayMode = .never
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
+        
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
         noteBody.text = note?.body
+    }
+    
+    @objc func saveTapped() {
+        let newNote = Note(title: "Note title", body: noteBody.text)
+        notes?.append(newNote)
+            
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(notes) {
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(encoded, forKey: "notes")
+        }
     }
     
     @objc func adjustForKeyboard(notification: Notification) {
