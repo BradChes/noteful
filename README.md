@@ -7,14 +7,7 @@
 An application that lets users write and save notes to device.
 
 ## Examples within this code
-- Reloading table views
-- Inserting rows into tables
-- UIToolbar
-- Swipe to delete gesture
-- Text input in alerts
-- Closures
-- NSRange
-
+// TODO
 
 ## Demonstration
 Small demonstration as to what the application does when on device.
