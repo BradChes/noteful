@@ -30,15 +30,14 @@ class DetailViewController: UIViewController {
     }
     
     @objc func saveTapped() {
-        let newNote = Note(title: "Note title", body: noteBody.text)
-        print(notes?.count)
-        print(note?.body)
+        let maxTitleSize = 20        
+        let noteTitle = noteBody.text.count > maxTitleSize ? (noteBody.text as NSString).substring(to: 20) : (noteBody.text as NSString).substring(to: noteBody.text.count)
+        
+        let newNote = Note(title: noteTitle, body: noteBody.text)
 
         if let index = notes?.firstIndex(where: {$0.id == note?.id}) {
-            print("if")
             notes?[index] = newNote
         } else {
-            print("else")
             notes?.append(newNote)
         }
             
