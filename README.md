@@ -7,12 +7,15 @@
 An application that lets users write and save notes to device.
 
 ## Examples within this code
-// TODO
+- Swipe to delete
+- Codable
+- UserDefaults
+- NotificationCenter
 
 ## Demonstration
 Small demonstration as to what the application does when on device.
-<!-- </br>
+</br>
 <p align="center">
 <img src="demo/noteful.gif" alt="Application demonstration"
 	title="Noteful demonstration" width="250" height="500" />
-</p> -->
+</p>
